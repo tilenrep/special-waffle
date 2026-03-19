@@ -1,0 +1,30 @@
+# terraform-settings-mapper config
+# Copy to mapper.toml and fill in your values.
+
+[defaults]
+# Default read token (can also be set via $TF_TOKEN or --token).
+token     = "your-tfc-read-token"
+api_url   = "https://app.terraform.io"
+# Directory where generated .tf files are written.
+output_dir = "output"
+
+# ── Workspace list ──────────────────────────────────────────────────────────
+# Each [[workspaces]] block is one workspace to map.
+# Per-workspace token/api_url override the defaults above.
+
+[[workspaces]]
+org       = "my-org"
+workspace = "production"
+
+[[workspaces]]
+org       = "my-org"
+workspace = "staging"
+
+[[workspaces]]
+# A workspace on a private TFE instance with its own token.
+org       = "other-org"
+workspace = "shared-infra"
+token     = "other-read-token"
+api_url   = "https://tfe.mycompany.com"
+# Custom output filename (default: other-org_shared-infra.tf)
+output_file = "shared_infra.tf"
